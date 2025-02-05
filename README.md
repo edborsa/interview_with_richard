@@ -71,7 +71,7 @@ mutation{
 
 ### Frontend:
 
-The frontend is located inside the `salon-client` folder.
+The frontend is located inside the `salon-frontend` folder.
 
 Node version: 22.13.1
 
