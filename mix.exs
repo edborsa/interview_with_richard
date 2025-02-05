@@ -60,7 +60,9 @@ defmodule BackendSalon.MixProject do
       {:bandit, "~> 1.5"},
       {:absinthe, "~> 1.7.0"},
       {:absinthe_plug, "~> 1.5"},
-      {:absinthe_phoenix, "~> 2.0.0"}
+      {:absinthe_phoenix, "~> 2.0.0"},
+      {:decimal, "~> 2.0"},
+      {:cors_plug, "~> 3.0"}
     ]
   end
 

@@ -12,6 +12,7 @@ defmodule BackendSalonWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: ["http://localhost:3000"]
   end
 
   scope "/", BackendSalonWeb do
@@ -23,7 +24,7 @@ defmodule BackendSalonWeb.Router do
   scope "/api" do
     pipe_through :api
 
-    forward "/graphiql", Absinthe.Plug.GraphiQL,
+    forward "/graphql", Absinthe.Plug.GraphiQL,
       interface: :advanced,
       json_codec: Jason,
       schema: BackendSalonWeb.Schemas.SchedulingSchema
