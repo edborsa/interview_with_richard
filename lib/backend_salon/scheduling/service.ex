@@ -3,12 +3,15 @@ defmodule BackendSalon.Scheduling.Service do
   import Ecto.Changeset
 
   alias BackendSalon.Scheduling.Salon
+  alias BackendSalon.Scheduling.Appointment
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "services" do
+    field :name, :string
     field :price, :decimal
     belongs_to :salon, Salon, type: :binary_id
+    has_many :appointments, Appointment
 
     timestamps(type: :utc_datetime)
   end

@@ -10,13 +10,27 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-{:ok, salon} = BackendSalon.Scheduling.create_salon(%{name: "Ed Salon", location: "Eds place"})
+alias BackendSalon.{Repo, Scheduling.Salon, Scheduling.Service, Scheduling.Appointment}
 
-BackendSalon.Scheduling.create_service(%{price: 1000, salon_id: salon.id})
+# Create salon
+{:ok, salon} =
+  Repo.insert(%Salon{
+    name: "Salon Name",
+    location: "123 Foo St"
+  })
 
-BackendSalon.Scheduling.create_appointment(%{
-  customer_name: "Leo",
-  service_name: "hair_cut",
-  appointment_time: "2025-02-05 19:07:12.378432Z",
-  salon_id: salon.id
+# Create services
+{:ok, haircut} =
+  Repo.insert(%Service{
+    name: "Haircut",
+    price: Decimal.new("50.00"),
+    salon_id: salon.id
+  })
+
+# Create appointment
+Repo.insert(%Appointment{
+  customer_name: "Ed Borsa",
+  appointment_time: DateTime.utc_now() |> DateTime.truncate(:second),
+  salon_id: salon.id,
+  service_id: haircut.id
 })

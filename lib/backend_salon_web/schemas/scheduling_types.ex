@@ -14,12 +14,37 @@ defmodule BackendSalonWeb.Schemas.SchedulingTypes do
   end
 
   object :salon do
+    field :id, :id
     field :name, :string
     field :location, :string
+    # Add this line
+    field :services, list_of(:service)
   end
 
+  # Rest of the types remain the same
   object :service do
+    field :id, :id
+    field :name, :string
     field :price, :decimal
-    belongs_to :salon, Salon
+    field :salon, :salon
+  end
+
+  object :appointment do
+    field :id, :id
+    field :customer_name, :string
+    field :appointment_time, :datetime
+    field :salon, :salon
+    field :service, :service
+  end
+
+  scalar :datetime do
+    parse(fn input ->
+      case DateTime.from_iso8601(input.value) do
+        {:ok, datetime, _} -> {:ok, datetime}
+        _ -> :error
+      end
+    end)
+
+    serialize(&DateTime.to_iso8601/1)
   end
 end

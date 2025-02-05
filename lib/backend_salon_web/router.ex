@@ -20,10 +20,14 @@ defmodule BackendSalonWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BackendSalonWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      interface: :advanced,
+      json_codec: Jason,
+      schema: BackendSalonWeb.Schemas.SchedulingSchema
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:backend_salon, :dev_routes) do

@@ -1,18 +1,60 @@
 # BackendSalon
 
-To start your Phoenix server:
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Setup
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Run `mix ecto.reset`. 
+I included some data in seeds.exs in order to be easier to test the code.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Graph QL Query Examples:
 
-## Learn more
+```graphql
+# LIST APPOINTMENTS 
+query{
+  appointments {
+    id,
+    ... ANY OTHER FIELDS
+  }
+}
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+# CREATE APPOINTMENT
+mutation{
+  createAppointment(
+    appointmentTime: "2025-02-05 19:26:39.748664Z",
+    salonId: SALON_ID
+    customerName: "Ed Borsa",
+    serviceId: SERVICE_ID
+  ) {
+    id,
+    ... ANY OTHER FIELDS
+  }
+}
+
+#UPDATE APPOINTMENT
+mutation{
+  updateAppointment(
+    id: "bfaba297-b572-48ca-a975-21755016da44",
+    appointmentTime: "2025-02-05 19:26:39.748664Z",
+    salonId: SALON_OID
+    customerName: "Ed Borsa 2",
+    serviceId: SERVICE_ID
+  ) {
+    id,
+    customerName,
+    ... ANY OTHER FIELDS
+    
+  }
+}
+
+#UPDATE DELETE APPOINTMENT
+mutation{
+  deleteAppointment(
+    id: $APPOINTMENT_ID
+  ) {
+    id,
+    customerName,
+    ... ANY OTHER FIELDS
+    
+  }
+}
+```
