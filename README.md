@@ -1,12 +1,23 @@
 # BackendSalon
 
+## Table of contents
+
+- [Setup](#setup)
+  - [Backend](#backend)
+    - [Graph QL Examples](#graph-ql-examples)
+  - [Frontend](#fronted)
+
 
 ## Setup
 
-Run `mix ecto.reset`. 
-I included some data in seeds.exs in order to be easier to test the code.
+### Backend:
 
-Graph QL Query Examples:
+Run `mix ecto.reset` to include some data
+Run `iex -S mix phx.server` to start the application
+
+Obs: I included some data in seeds.exs in order to be easier to test the code.
+
+#### Graph QL Examples:
 
 ```graphql
 # LIST APPOINTMENTS 
@@ -33,9 +44,9 @@ mutation{
 #UPDATE APPOINTMENT
 mutation{
   updateAppointment(
-    id: "bfaba297-b572-48ca-a975-21755016da44",
+    id: $APPOINTMENT_ID,
     appointmentTime: "2025-02-05 19:26:39.748664Z",
-    salonId: SALON_OID
+    salonId: SALON_ID
     customerName: "Ed Borsa 2",
     serviceId: SERVICE_ID
   ) {
@@ -54,7 +65,14 @@ mutation{
     id,
     customerName,
     ... ANY OTHER FIELDS
-    
   }
 }
 ```
+
+### Frontend:
+
+The frontend is located inside the `salon-client` folder.
+
+Node version: 22.13.1
+
+Run: `npm run dev` to start the frontend
